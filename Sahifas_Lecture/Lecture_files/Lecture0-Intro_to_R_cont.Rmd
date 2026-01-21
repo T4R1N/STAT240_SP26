@@ -28,7 +28,7 @@ R is the most popular language used for Statistical Computing and Data Analysis 
 
 We will be using the console to demonstrate the codes and syntax of R. In this lecture note, we will start with some operations and then move on to discussing different R objects and finally go over functions, packages and loops in R.
 
-## Operations
+# Operations
 
 R can be used as a calculator to carry out many different operations. It can do basic mathematical operations as well as complex operations like finding square root, logarithm, exponential using functions. We will first see the basic mathematical and logical operations that can be done in R and the syntax for that.
 
@@ -98,7 +98,7 @@ F | F
 
 
 
-## Basic R Objects
+# Basic R Objects
 
 In R programming, objects are the fundamental data structures used to store and manipulate data. Objects in R can hold different types of data, such as numbers, characters, lists, or even more complex structures like data frames and matrices.
 
@@ -576,7 +576,7 @@ alphabet$isItAVowel
 
 There are some important functions that can be used to get the number of rows, cols or in general the dimension and much more which we will learn later on in this lecture note. 
 
-## Functions:
+# Functions:
 
 > Functions are reusable blocks of code that produce outputs depending on the task defined and using the inputs given to them. These inputs are called arguments. These are saved in the environment and are used by using the following syntax `function_name(arg1 = value, arg2 = value, ...)`. Not all functions require input, we will some examples of those soon.
 
@@ -702,7 +702,7 @@ area_per_rect(2) # suing width as 1, and 2 as the length since length is the fir
 
 All user defined functions are saved in the Environment under Functions.
 
-## Packages
+# Packages
 
 > Packages in R are a set of functions, compiled codes, and sample data. These are stored under a directory called "library" within the R environment. By default, R installs a group of packages during installation. Once we start the R console, only the default packages, specifically the `base` R package, are available to use. Other packages that are already installed need to be loaded explicitly before each session. 
 
@@ -712,7 +712,7 @@ For installing R Package from CRAN we need the name of the package and use the f
 
 A package can be loaded onto the current session of R by using the command `library()`, the functions and objects in that package all become available in the global environment.
 
-## Loops or Iterations
+# Loops or Iterations
 
 We won't be using loops or iterations for this course, so we will go over them very briefly.
 
@@ -764,8 +764,8 @@ while (val <= 5)
 Now that you all are familiar with basic R syntax, we will go ahead dive deeper into data visualization, wrangling and more.
 
 
----
-## THE END
+-----------
+# THE END
 
 
 
