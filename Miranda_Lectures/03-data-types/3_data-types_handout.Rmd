@@ -16,6 +16,9 @@ my_favorite_number <- 8
 
 # This does not change the value of either x or my_favorite_number
 x + my_favorite_number
+
+# But if we do want to update the value:
+x <- x + 1
 ```
 
 Capitalization matters!
