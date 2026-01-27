@@ -1,6 +1,6 @@
 ---
 title: "Discussion 1"
-author: "Student's Name Here"
+author: "Tarin Phippen"
 output: html_document
 ---
 
@@ -27,11 +27,17 @@ The goal of today's discussion will be to review the syllabus, think about your 
 
 What are the dates for the first midterm, second midterm, and final exam for this course? As a reminder, dates or times for the final exam are rarely offered and require extenuating or emergency circumstances.
 
+- First midterm:
+- Second midterm:
+- Final exam:
 
 # Problem 2
 
 What are your goals for taking this course and what are you hoping to learn?
 
+This is a good introduction to Data Science for me. It will help me decide whether to pursue a certificate in Data Science or just go all in on Computer Science.
+
+I hope to use my background in programming to excel in this class.
 
 # Problem 3
 
@@ -49,6 +55,7 @@ You may find [Section 2.3.2 of the textbook ](https://bwu62.github.io/stat240-re
 ```{r}
 # Write your code in here!
 
+3^2 + 5
 ```
 
 Ensure that the answer is appearing in the knitted file correctly. Do not just type the answer, write the code to get the answer.
