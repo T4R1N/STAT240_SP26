@@ -15,7 +15,7 @@ output: rmdformats::readthedown
   ##   error = TRUE means the document will continue to knit in the presence of errors while knitting
   ##   fig.height = 3 means figures are 3 inches tall unless otherwise specified
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
-                      error = TRUE, fig.height = 3, fig.width = 4)
+                      error = TRUE, fig.height = 3, fig.width = 4, root.dir = "/home/t4/Development/R/STAT240_SP26")
 
 library(tidyverse)
 ```
@@ -431,7 +431,9 @@ Play with some more of the ideas like making histograms and density plots for so
 ### If this gives you "Error: could not find file ... in working directory ...", go to Session > Set Working Directory > To Source File Location, and try again.
 ### If that doesn't work, then you downloaded one or both files to the wrong place, or they have the wrong name - make sure they don't have a " (1)" or "-1" at the end of their names, which can happen when you download multiple times.
 
-mendota = read_csv("../data/lake-mendota-winters-2025.csv") %>% 
+setwd("/home/t4/Development/R/STAT240_SP26")
+getwd()
+mendota = read_csv("data/lake-mendota-winters-2025.csv") %>% 
   mutate(century = as.character(floor(year1/100)+1), # this line of code adds an extra column for century in the mendota dataset, which you can use to interesting graphs
          century = case_when(
            century == "19" ~ "19th",
@@ -447,8 +449,11 @@ Go SOLVE IT!!! Happy exploring!!
 > Question 1) How has the duration of time Lake Mendota closes due to ice each winter changed over the last 168 years?
 
 ```{r}
-#write your code here
+ggplot(mendota, aes(x = year1, y = duration)) +
+  geom_point() +
+  geom_smooth()
 ```
+According to the chart, the Lake Mendota's average duration of closure has decreased by about 40 days.
 
 > Question 2) What is the most common duration of closure?
 
