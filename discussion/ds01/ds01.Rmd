@@ -27,9 +27,14 @@ The goal of today's discussion will be to review the syllabus, think about your 
 
 What are the dates for the first midterm, second midterm, and final exam for this course? As a reminder, makeup dates or times for the final exam are rarely offered and require extenuating or emergency circumstances.
 
-- First midterm:
-- Second midterm:
-- Final exam:
+### First midterm
+Friday, Feb 27 during lecture
+
+### Second midterm
+Wednesday, Mar 25 during lecture
+
+### Final exam
+Thursday, May 7 from 7:25PM - 9:25PM
 
 # Problem 2
 
