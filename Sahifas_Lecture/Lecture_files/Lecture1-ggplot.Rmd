@@ -458,19 +458,37 @@ According to the chart, the Lake Mendota's average duration of closure has decre
 > Question 2) What is the most common duration of closure?
 
 ```{r}
-#write your code here
+find_mode <- function(x) {
+  u <- unique(x)
+  tab <- tabulate(match(x, u))
+  u[tab == max(tab)]
+}
+
+mendota_mode = find_mode(mendota$duration)
+
+print(mendota_mode)
 ```
 
 > Question 3) Create three plots that explains the distribution of the `duration`. One of these should give an idea about the outliers.
 
 ```{r}
-#write your code here
+ggplot(mendota, aes(x = year1, y = duration)) +
+  geom_point() + 
+  geom_smooth() 
+
+ggplot(mendota, aes(y = duration)) +
+  geom_histogram() 
+
+ggplot(mendota, aes(x = year1, y = duration)) +
+  geom_boxplot()
 ```
 
 > Question 4) Try to create a density plot for `duration` that shows one line for each century. Also, make sure that that each of the lines are of different types and the inside of the density curve is of different color.
 
 ```{r}
-#write your code here
+ggplot(mendota, aes(x = duration, color = century, fill = century, linetype = century)) +
+  geom_density(alpha=0.5)
+
 ```
 
 > Question 5) Create a bar chart to get an idea of the average duration of lake closure through different centuries. What conclusion can you reach to from this plot? Does it help you answer question 1?
@@ -482,7 +500,13 @@ mendota_summarized = mendota %>%
   summarize(numYears = n(), avgDuration = mean(duration))
 
 #write your code here
+
+ggplot(data = mendota_summarized, mapping = aes(x = century, y = avgDuration, color = century)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label=avgDuration), vjust=-0.3, size=3.5)
 ```
+
+
 
 > Question 6) Why Won't It Work? You want a scatterplot with `year1` on the x axis, `duration` on the y axis and the *points* colored by `intervals`. The four code below produce errors or incorrect results. Examine the code and the associated error message/output, and explain what is going wrong and why. Suggest a fix for the code in the same r-chunk.
 
