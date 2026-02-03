@@ -1,0 +1,49 @@
+---
+title: "live_week3"
+author: "Sahifa"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = TRUE)
+library(tidyverse)
+```
+
+```{r}
+mendota = read_csv("../data/lake-mendota-winters-2025.csv")
+```
+
+We will use the in-built tidyverse dataset called `mpg`.
+
+```{r}
+# step 1: stepping up the canvas
+
+ggplot()
+```
+
+```{r}
+#step 2: specify the data
+
+ggplot(data = mpg)
+```
+
+```{r}
+#step 3: specify the mappings
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy))
+```
+
+```{r}
+#step 4: specify the type of plot
+
+ggplot(data = mpg, mapping = aes(cty, hwy)) + 
+  geom_point(col = "red") +
+  geom_line()
+```
+
+
+
+
+
+

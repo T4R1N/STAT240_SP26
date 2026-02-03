@@ -1,0 +1,80 @@
+---
+title: "live_week3"
+author: "Sahifa"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = TRUE)
+# this is a must have
+library(tidyverse)
+```
+
+
+# Dataset
+
+- in-built dataset called `mpg` in `ggplot2`
+
+```{r}
+# dataset
+
+?mpg # more information about the dataset
+
+view(mpg) # is to open the dataset in a different tab in the source
+
+mendota = read_csv("../data/lake-mendota-winters-2025.csv")
+```
+
+# ggplot
+
+# Step 1: building the base layer or empty canvas
+
+```{r}
+ggplot()
+```
+
+# Step 2: specifying the dataset (mpg)
+
+```{r}
+ggplot(data = mpg)
+
+ggplot(mpg)
+```
+
+# Step 3: specifying the axes (cty , hwy mileages)
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy))
+
+ggplot(mpg, aes(cty, hwy))
+```
+
+# Step 4: specifying the layers (point plot, line plot, or etc)
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point() +
+  geom_line()
+```
+
+
+- customization
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point(color = "red") +
+  geom_line()
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point(col = "red") +
+  geom_line()
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_line() +
+  geom_point(col = "red") 
+```
+
+
