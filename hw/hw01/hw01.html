@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Student’s Name Here" />
+<meta name="author" content="Tarin Phippen" />
 
 
 <title>Homework 1</title>
@@ -350,7 +350,7 @@ display: none;
 
 
 <h1 class="title toc-ignore">Homework 1</h1>
-<h4 class="author">Student’s Name Here</h4>
+<h4 class="author">Tarin Phippen</h4>
 
 </div>
 
@@ -377,19 +377,22 @@ long the output will be.</p>
 check your work in the console. Also try to figure out which command
 will throw a warning message.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p><code>a + c</code></p></li>
-<li><p><code>sum(a)</code></p></li>
-<li><p><code>sum(a * c)</code></p></li>
-<li><p><code>a + b</code></p></li>
-<li><p><code>sum(a) + b</code></p></li>
+<li><p><code>a + c</code> guess: 3 actual: 3</p></li>
+<li><p><code>sum(a)</code> guess: 1 actual: 1</p></li>
+<li><p><code>sum(a * c)</code> guess: 1 actual: 1</p></li>
+<li><p><code>a + b</code> guess: 3 actual: warning</p></li>
+<li><p><code>sum(a) + b</code> guess: 2 actual: 2</p></li>
 </ol>
 </div>
 <div id="problem-2" class="section level1">
 <h1>Problem 2</h1>
 <ol style="list-style-type: lower-alpha">
-<li><p>Create a vector of all the whole numbers from 1 to 50 (including
-the endpoints), and <strong>save</strong> it in a new variable called
-<code>firstFifty</code>.</p></li>
+<li>Create a vector of all the whole numbers from 1 to 50 (including the
+endpoints), and <strong>save</strong> it in a new variable called
+<code>firstFifty</code>.</li>
+</ol>
+<pre class="r"><code>firstFifty &lt;- 1:50</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
 <li><p>First compute the mean of <code>firstFifty</code>.</p>
 <p>Then, create a new vector which is the result of subtracting that
 mean from each value in <code>firstFifty</code>.</p>
@@ -399,6 +402,18 @@ a variable.</p>
 <p><em>Note: This result is not just a special case with these specific
 numbers, this process will return that sum for any vector!</em></p></li>
 </ol>
+<pre class="r"><code>fiftyMean &lt;- mean(firstFifty)
+fiftyMean</code></pre>
+<pre><code>## [1] 25.5</code></pre>
+<pre class="r"><code>subtractedFifty &lt;- firstFifty - fiftyMean
+subtractedFifty</code></pre>
+<pre><code>##  [1] -24.5 -23.5 -22.5 -21.5 -20.5 -19.5 -18.5 -17.5 -16.5 -15.5 -14.5 -13.5
+## [13] -12.5 -11.5 -10.5  -9.5  -8.5  -7.5  -6.5  -5.5  -4.5  -3.5  -2.5  -1.5
+## [25]  -0.5   0.5   1.5   2.5   3.5   4.5   5.5   6.5   7.5   8.5   9.5  10.5
+## [37]  11.5  12.5  13.5  14.5  15.5  16.5  17.5  18.5  19.5  20.5  21.5  22.5
+## [49]  23.5  24.5</code></pre>
+<pre class="r"><code>sum(subtractedFifty)</code></pre>
+<pre><code>## [1] 0</code></pre>
 </div>
 <div id="problem-3" class="section level1">
 <h1>Problem 3</h1>
@@ -425,6 +440,10 @@ is your vector of interest, in this case <code>firstFifty</code>, <span class="m
 <p>We encourage you to use <code>sd(firstFifty)</code> to check your
 work.</p></li>
 </ul>
+<pre class="r"><code>sd(firstFifty)</code></pre>
+<pre><code>## [1] 14.57738</code></pre>
+<pre class="r"><code>sqrt(sum(subtractedFifty * subtractedFifty) / (length(subtractedFifty ) - 1))</code></pre>
+<pre><code>## [1] 14.57738</code></pre>
 </div>
 <div id="problem-4" class="section level1">
 <h1>Problem 4</h1>
@@ -437,6 +456,12 @@ primes &lt;- c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47)</code></p
 <code>firstFifty</code> is a prime number.</p>
 <p>Let this vector be <strong>printed as output</strong>, do not save it
 as a variable.</p>
+<pre class="r"><code>firstFifty %in% primes</code></pre>
+<pre><code>##  [1] FALSE  TRUE  TRUE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE
+## [13]  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE
+## [25] FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+## [37]  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE
+## [49] FALSE FALSE</code></pre>
 </div>
 <div id="problem-5" class="section level1">
 <h1>Problem 5</h1>
@@ -446,17 +471,26 @@ as a variable.</p>
 <p>Use help page for <code>substr()</code> (which you can access with
 <code>?substr</code>) to answer the following questions.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>What does the <code>substr()</code> function do?</p></li>
+<li><p>What does the <code>substr()</code> function do? Where every
+character in a String has an index, it takes out a String of characters
+from between two indexes</p></li>
 <li><p>What does <code>substr()</code> do to a non-character input?
 Answer this by reading the help file, then test out the behavior with an
-example in R.</p></li>
-<li><p>Use the <code>substr()</code> function and the vector defined
-below to create a new vector of three-letter abbreviations for all
-twelve months of the year. Let this be printed as output.</p></li>
+example in R. It will create a new character vector</p></li>
+</ol>
+<pre class="r"><code>substr(c(1,2,3,4), 2, 3)</code></pre>
+<pre><code>## [1] &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot;</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Use the <code>substr()</code> function and the vector defined below
+to create a new vector of three-letter abbreviations for all twelve
+months of the year. Let this be printed as output.</li>
 </ol>
 <pre class="r"><code>months &lt;- c(&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;,
             &quot;May&quot;, &quot;June&quot;, &quot;July&quot;, &quot;August&quot;,
-            &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;)</code></pre>
+            &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;)
+
+substring(months, 1, 3)</code></pre>
+<pre><code>##  [1] &quot;Jan&quot; &quot;Feb&quot; &quot;Mar&quot; &quot;Apr&quot; &quot;May&quot; &quot;Jun&quot; &quot;Jul&quot; &quot;Aug&quot; &quot;Sep&quot; &quot;Oct&quot; &quot;Nov&quot; &quot;Dec&quot;</code></pre>
 </div>
 <div id="problem-6" class="section level1">
 <h1>Problem 6</h1>
@@ -481,15 +515,64 @@ otherwise.</p></li>
 </ul>
 <p>Save this dataframe in a new variable called
 <code>alphanumeric</code>.</p>
+<pre class="r"><code>alphanumeric &lt;- tibble(
+  char = letters,
+  pos = 1:26,
+  isVowel = letters %in% c(&quot;a&quot;, &quot;e&quot;, &quot;i&quot;, &quot;o&quot;, &quot;u&quot;),
+  isPrime = pos %in% primes,
+  vowelAndPrime = isVowel &amp; isPrime
+)</code></pre>
 </div>
 <div id="problem-7" class="section level1">
 <h1>Problem 7</h1>
 <p>Once you have created <code>alphanumeric</code> in Problem 6,
 uncomment (delete the #) the lines of code in the following chunk and
 run it.</p>
-<pre class="r"><code># alphanumeric
-
-# print(alphanumeric, n = Inf)</code></pre>
+<pre class="r"><code>alphanumeric</code></pre>
+<pre><code>## # A tibble: 26 × 5
+##    char    pos isVowel isPrime vowelAndPrime
+##    &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;        
+##  1 a         1 TRUE    FALSE   FALSE        
+##  2 b         2 FALSE   TRUE    FALSE        
+##  3 c         3 FALSE   TRUE    FALSE        
+##  4 d         4 FALSE   FALSE   FALSE        
+##  5 e         5 TRUE    TRUE    TRUE         
+##  6 f         6 FALSE   FALSE   FALSE        
+##  7 g         7 FALSE   TRUE    FALSE        
+##  8 h         8 FALSE   FALSE   FALSE        
+##  9 i         9 TRUE    FALSE   FALSE        
+## 10 j        10 FALSE   FALSE   FALSE        
+## # ℹ 16 more rows</code></pre>
+<pre class="r"><code>print(alphanumeric, n = Inf)</code></pre>
+<pre><code>## # A tibble: 26 × 5
+##    char    pos isVowel isPrime vowelAndPrime
+##    &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;        
+##  1 a         1 TRUE    FALSE   FALSE        
+##  2 b         2 FALSE   TRUE    FALSE        
+##  3 c         3 FALSE   TRUE    FALSE        
+##  4 d         4 FALSE   FALSE   FALSE        
+##  5 e         5 TRUE    TRUE    TRUE         
+##  6 f         6 FALSE   FALSE   FALSE        
+##  7 g         7 FALSE   TRUE    FALSE        
+##  8 h         8 FALSE   FALSE   FALSE        
+##  9 i         9 TRUE    FALSE   FALSE        
+## 10 j        10 FALSE   FALSE   FALSE        
+## 11 k        11 FALSE   TRUE    FALSE        
+## 12 l        12 FALSE   FALSE   FALSE        
+## 13 m        13 FALSE   TRUE    FALSE        
+## 14 n        14 FALSE   FALSE   FALSE        
+## 15 o        15 TRUE    FALSE   FALSE        
+## 16 p        16 FALSE   FALSE   FALSE        
+## 17 q        17 FALSE   TRUE    FALSE        
+## 18 r        18 FALSE   FALSE   FALSE        
+## 19 s        19 FALSE   TRUE    FALSE        
+## 20 t        20 FALSE   FALSE   FALSE        
+## 21 u        21 TRUE    FALSE   FALSE        
+## 22 v        22 FALSE   FALSE   FALSE        
+## 23 w        23 FALSE   TRUE    FALSE        
+## 24 x        24 FALSE   FALSE   FALSE        
+## 25 y        25 FALSE   FALSE   FALSE        
+## 26 z        26 FALSE   FALSE   FALSE</code></pre>
 <ul>
 <li>Notice that <code>print</code> with the <code>n = Inf</code> output
 is specifying to print ALL (<code>Inf</code> = infinity) rows of the
@@ -499,6 +582,7 @@ defaults to 10 rows being printed.</li>
 <p>Looking at this output, Which vowel(s) are in a prime number
 position? In other words, in which rows is <code>vowelAndPrime</code>
 TRUE?</p>
+<p>Only <em>e</em>, the fifth letter.</p>
 </div>
 <div id="problem-8" class="section level1">
 <h1>Problem 8</h1>
@@ -509,28 +593,45 @@ resolved each error.</p>
 <li>We want to get the first element of the `primes’ vector.</li>
 </ol>
 <pre class="r"><code>primes(1)</code></pre>
-<pre><code>## Error in primes(1): could not find function &quot;primes&quot;</code></pre>
+<pre><code>## Error in `primes()`:
+## ! could not find function &quot;primes&quot;</code></pre>
+<pre class="r"><code>primes[1]</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>To access an element of a vector, you must use the square []
+brackets, not the curved () ones</p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>We want to define a character vector with two elements,
 <code>apple</code> and <code>banana</code>.</li>
 </ol>
-<pre class="r"><code>fruits &lt;- c(&quot;apple, &quot; &quot;banana&quot;)</code></pre>
-<pre><code>## Error: &lt;text&gt;:1:23: unexpected string constant
+<pre class="r"><code>fruits &lt;- c(&quot;apple, &quot; &quot;banana&quot;)
+
+fruits &lt;- c(&quot;apple&quot;, &quot;banana&quot;)</code></pre>
+<pre><code>## Error in parse(text = input): &lt;text&gt;:1:23: unexpected string constant
 ## 1: fruits &lt;- c(&quot;apple, &quot; &quot;banana&quot;
 ##                           ^</code></pre>
+<p>The String contained the comma that should have separated the
+arguments</p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>We want to set <code>notAPrimeNumber</code> equal to 51.</li>
 </ol>
 <pre class="r"><code>notAPrimeNumber == 51</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;notAPrimeNumber&#39; not found</code></pre>
+<pre><code>## Error:
+## ! object &#39;notAPrimeNumber&#39; not found</code></pre>
+<pre class="r"><code>notAPrimeNumber = 51</code></pre>
+<p>Double equals == sign indicates a boolean comparison. To set a value,
+use a single equals = sign.</p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>We want to get the first column of the built-in <code>mtcars</code>
 dataset.</li>
 </ol>
-<pre class="r"><code>mtcars$1</code></pre>
-<pre><code>## Error: &lt;text&gt;:1:8: unexpected numeric constant
+<pre class="r"><code>mtcars$1
+
+mtcars[1]</code></pre>
+<pre><code>## Error in parse(text = input): &lt;text&gt;:1:8: unexpected numeric constant
 ## 1: mtcars$1
 ##            ^</code></pre>
+<p>Use the dollar $ sign when accessing a column by name. Otherwise,
+access it like a normal vector.</p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>We want to take a vector of ages in years and multiply each element
 by 12 to get a vector of ages in months.</li>
@@ -538,7 +639,13 @@ by 12 to get a vector of ages in months.</li>
 <pre class="r"><code>ages &lt;- c(&quot;21&quot;, &quot;8&quot;, &quot;14&quot;, &quot;35&quot;, &quot;41&quot;)
 
 ages * 12</code></pre>
-<pre><code>## Error in ages * 12: non-numeric argument to binary operator</code></pre>
+<pre><code>## Error in `ages * 12`:
+## ! non-numeric argument to binary operator</code></pre>
+<pre class="r"><code>ages &lt;- c(21, 8, 14, 35, 41)
+
+ages * 12</code></pre>
+<pre><code>## [1] 252  96 168 420 492</code></pre>
+<p>Arithmetic operations can only be performed on numeric values.</p>
 </div>
 <div id="submission" class="section level1">
 <h1>Submission</h1>

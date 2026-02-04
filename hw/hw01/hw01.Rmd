@@ -1,6 +1,6 @@
 ---
 title: "Homework 1"
-author: "Student's Name Here"
+author: "Tarin Phippen"
 output: html_document
 ---
 
@@ -26,19 +26,33 @@ For each of the following operations, write down how many elements long the outp
 Think through the question first and make an initial guess, then check your work in the console. Also try to figure out which command will throw a warning message.
 
 (a) `a + c`
+guess: 3
+actual: 3
 
 (b) `sum(a)`
+guess: 1
+actual: 1
 
 (c) `sum(a * c)`
+guess: 1
+actual: 1
 
 (d) `a + b`
+guess: 3
+actual: warning
 
 (e) `sum(a) + b`
+guess: 2
+actual: 2
 
 
 # Problem 2
 
 (a) Create a vector of all the whole numbers from 1 to 50 (including the endpoints), and **save** it in a new variable called `firstFifty`.
+
+```{r}
+firstFifty <- 1:50
+```
 
 (b) First compute the mean of `firstFifty`.
 
@@ -49,6 +63,14 @@ Think through the question first and make an initial guess, then check your work
     Let that sum be **printed as output**, do not save it as a variable.
 
     *Note: This result is not just a special case with these specific numbers, this process will return that sum for any vector!*
+
+```{r}
+fiftyMean <- mean(firstFifty)
+fiftyMean
+subtractedFifty <- firstFifty - fiftyMean
+subtractedFifty
+sum(subtractedFifty)
+```
 
 
 # Problem 3
@@ -71,6 +93,12 @@ To compute the standard deviation, execute the following steps in this order:
 
     We encourage you to use `sd(firstFifty)` to check your work.
 
+```{r}
+sd(firstFifty)
+
+sqrt(sum(subtractedFifty * subtractedFifty) / (length(subtractedFifty ) - 1))
+```
+
 
 # Problem 4
 
@@ -85,6 +113,11 @@ Create a vector of logical elements - that is, `TRUE`s and `FALSE`s; which indic
 
 Let this vector be **printed as output**, do not save it as a variable.
 
+```{r}
+firstFifty %in% primes
+```
+
+
 
 # Problem 5
 
@@ -97,8 +130,14 @@ substr("abcde", 2, 4)
 Use help page for `substr()` (which you can access with `?substr`) to answer the following questions.
 
 (a) What does the `substr()` function do?
+Where every character in a String has an index, it takes out a String of characters from between two indexes
 
 (b) What does `substr()` do to a non-character input?  Answer this by reading the help file, then test out the behavior with an example in R.
+It will create a new character vector
+```{r}
+substr(c(1,2,3,4), 2, 3)
+```
+
 
 (c) Use the `substr()` function and the vector defined below to create a new vector of three-letter abbreviations for all twelve months of the year.  Let this be printed as output.
 
@@ -106,6 +145,8 @@ Use help page for `substr()` (which you can access with `?substr`) to answer the
 months <- c("January", "February", "March", "April",
             "May", "June", "July", "August",
             "September", "October", "November", "December")
+
+substring(months, 1, 3)
 ```
 
 
@@ -125,20 +166,34 @@ Create a dataframe using the `tibble()` command with five columns:
 
 Save this dataframe in a new variable called `alphanumeric`.
 
+```{r}
+alphanumeric <- tibble(
+  char = letters,
+  pos = 1:26,
+  isVowel = letters %in% c("a", "e", "i", "o", "u"),
+  isPrime = pos %in% primes,
+  vowelAndPrime = isVowel & isPrime
+)
+```
+
+
+
 
 # Problem 7
 
 Once you have created `alphanumeric` in Problem 6, uncomment (delete the #) the lines of code in the following chunk and run it.
 
 ```{r}
-# alphanumeric
+alphanumeric
 
-# print(alphanumeric, n = Inf)
+print(alphanumeric, n = Inf)
 ```
 
 * Notice that `print` with the `n = Inf` output is specifying to print ALL (`Inf` = infinity) rows of the data frame, whereas just calling `alphanumeric` on its own defaults to 10 rows being printed.
 
 Looking at this output, Which vowel(s) are in a prime number position? In other words, in which rows is `vowelAndPrime` TRUE?
+
+Only *e*, the fifth letter.
 
 
 # Problem 8
@@ -149,25 +204,38 @@ The five lines of code below all return an error message.  Read the error messag
 
 ```{r}
 primes(1)
+
+primes[1]
 ```
+To access an element of a vector, you must use the square [] brackets, not the curved () ones
 
 (b) We want to define a character vector with two elements, `apple` and `banana`.
 
 ```{r}
 fruits <- c("apple, " "banana")
+
+fruits <- c("apple", "banana")
 ```
+The String contained the comma that should have separated the arguments
 
 (c) We want to set `notAPrimeNumber` equal to 51.
 
 ```{r}
 notAPrimeNumber == 51
+
+notAPrimeNumber = 51
 ```
+Double equals == sign indicates a boolean comparison. 
+To set a value, use a single equals = sign.
 
 (d) We want to get the first column of the built-in `mtcars` dataset.
 
 ```{r}
 mtcars$1
+
+mtcars[1]
 ```
+Use the dollar $ sign when accessing a column by name. Otherwise, access it like a normal vector.
 
 (e) We want to take a vector of ages in years and multiply each element by 12 to get a vector of ages in months.
 
@@ -175,7 +243,12 @@ mtcars$1
 ages <- c("21", "8", "14", "35", "41")
 
 ages * 12
+
+ages <- c(21, 8, 14, 35, 41)
+
+ages * 12
 ```
+Arithmetic operations can only be performed on numeric values.
 
 
 # Submission
