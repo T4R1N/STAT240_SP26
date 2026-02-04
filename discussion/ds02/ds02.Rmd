@@ -1,12 +1,13 @@
 ---
 title: "Discussion 2"
-author: "Student's Name Here"
+author: "Tarin Phippen"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = TRUE, message = FALSE,
                       error = TRUE)
+library(readr)
 ```
 
 # Preliminaries
@@ -38,17 +39,19 @@ The code below is for you to play with.  Remember you can also write your own co
 ```{r}
 # Do some arithmetic with numeric vectors
 1:10 + 11:20
+NA + "NA"
+NA:Inf * 1:10
 ```
 
 ```{r}
 # Define a logical vector and calculate the mean
-logicalValues <- c(TRUE, TRUE, FALSE, NA, FALSE, TRUE)
+logicalValues <- c(TRUE, TRUE, FALSE, NA, "15", TRUE)
 
 mean(logicalValues)
 mean(logicalValues, na.rm = T)
+mean()
 
-# What is the second item in this vector?
-logicalValues[2]
+logicalValues[7] * 15
 ```
 
 ```{r}
@@ -56,23 +59,28 @@ logicalValues[2]
 library(tidyverse)
 
 tibble(
-  name = c("Cameron", "Bret", "Miranda", "Sahifa", "Bi"),
+  name = c("Cameron", "Bret", "Miranda", "Bi"),
   sec_count = c(1, 1, 3, 3, NA),
   more_than_1_sec = sec_count > 1
 )
+
+tibble(
+  name <- c("Cameron", "Bret", "Miranda", "Miranda", "Bi"),
+  sec_count = c(1, 1, 3, 3, NA),
+  more_than_1_sec = sec_count > 1
+
 ```
 
 ```{r}
 # Read in a new dataframe
-## This assumes that:
-### STAT240/data/ contains the data file
 ### STAT240/discussion/ds02/ is your working directory.
 
-monona <- read_csv("../../data/lake-monona-winters-2025.csv")
+monona <- read_csv("lake-monona-winters-2025.csv")
+monona2 <- read_csv("data/lake-monona-winters-2025.csv")
 
 # This command should print out the first six rows of the monona winters dataset, starting with 1855-1856.
 
-head(monona)
+head(monona, x)
 ```
 
 
