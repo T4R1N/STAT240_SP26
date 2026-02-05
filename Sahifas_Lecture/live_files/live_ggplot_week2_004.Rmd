@@ -76,5 +76,74 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_line() +
   geom_point(col = "red") 
 ```
+# Wednesday
 
+```{r}
+cty = mpg$cty
+hwy = mpg$hwy
+
+ggplot(mapping = aes(x = cty, y = hwy, col = cyl)) +
+  geom_point()
+```
+```{r}
+ggplot(mpg, aes(cty, hwy, col = as.factor(cyl))) +
+  geom_point() +
+  geom_line()
+```
+# variable vs constant aesthetic
+
+```{r}
+ggplot(mpg, aes(cty, hwy, col = as.factor(cyl))) +
+  geom_point() +
+  geom_line()
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_line() +
+  geom_point(col = "red")
+```
+
+# global vs local aesthetic
+
+```{r}
+ggplot(mpg, aes(cty, hwy, col = as.factor(cyl))) + # global aesthetic
+  geom_point() +
+  geom_line()
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_line() +
+  geom_point(col = "red") # local aesthetic
+```
+```{r}
+ggplot(mpg, aes(cty, hwy, col = as.factor(cyl))) + # global aesthetic
+  geom_point() +
+  geom_line()
+
+ggplot() + 
+  geom_point(data = mpg, mapping = aes(cty, hwy, col = as.factor(cyl))) + # local aesthetic
+  geom_line()
+```
+
+# Two Variable plots:
+
+- geom_point():
+- geom_line():
+- geom_smooth(): this makes a trendline or best fit line
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point() +
+  geom_smooth()
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = F, col = "red") # lm = linear model, se = standard error
+```
+- geom_col(): this is for creating bar graphs, x axis has to have categorical variables
+
+```{r}
+summary_mpg = count(mpg, class) # we will learn function in dplyr
+
+ggplot(summary_mpg, aes(x = class, y = n)) + 
+  geom_col(color = "purple", fill = "yellow")
+```
 
