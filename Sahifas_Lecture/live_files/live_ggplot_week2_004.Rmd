@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE, error = TRUE)
 # this is a must have
 library(tidyverse)
 ```
-
+# Monday
 
 # Dataset
 
@@ -146,4 +146,101 @@ summary_mpg = count(mpg, class) # we will learn function in dplyr
 ggplot(summary_mpg, aes(x = class, y = n)) + 
   geom_col(color = "purple", fill = "yellow")
 ```
+
+# Friday
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) +
+geom_smooth(method = "lm", se = F)
+```
+
+- geom_col():
+
+```{r}
+summary_cyl = read_csv("../data/summary_cyl.csv")
+
+ggplot(summary_cyl, aes(as.factor(cyl), avg_mpg)) +
+  geom_col(aes(fill = =avg_displ))
+
+ggplot(summary_cyl, aes(as.factor(cyl), avg_mpg)) +
+  geom_col(aes(fill = as.factor(avg_displ)))
+```
+
+
+
+# One variable
+
+Frequency table
+
+Categorical variable
+
+Continuous variable
+
+- geom_bar(): bar graph for displaying counts of each category
+
+```{r}
+ggplot(mpg, aes(y = manufacturer)) +
+  geom_bar(col = "orange", fill = "yellow")
+
+ggplot(mpg, aes(drv)) +
+  geom_bar()
+```
+
+```{r}
+ggplot(mpg, aes(displ)) +
+  geom_bar()
+```
+
+- geom_histogram(): histogram for a continuous random variables
+
+
+```{r}
+ggplot(mpg, aes(displ)) +
+  geom_histogram(bins = 10, fill = "skyblue", col = "dodgerblue")
+
+ggplot(mpg, aes(displ)) +
+  geom_histogram(binwidth = 0.5, fill = "skyblue", col = "dodgerblue", boundary = 0)
+```
+
+
+- geom_density(): makes density plots (distribution plots) for a continuous variable
+
+
+```{r}
+ggplot(mpg, aes(displ)) +
+  geom_density()
+```
+
+
+- Overlapping density and histogram
+
+```{r}
+ggplot(mpg, aes(displ)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 0.5, fill = "skyblue", col = "dodgerblue", boundary = 0) +
+  geom_density(col = "red", fill = "pink")
+```
+
+alpha: controls the opacity or transparency of the graph. The values of alpha lie between 0 and 1. The closer alpha is to 1 the more opaque your graph
+
+```{r}
+ggplot(mpg, aes(displ)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 0.5, fill = "skyblue", col = "dodgerblue", boundary = 0) +
+  geom_density(col = "red", fill = "pink", alpha = 0.5)
+```
+
+- geom_boxplot: demonstrates teh iqr and min, max, outliers
+
+```{r}
+ggplot(mpg, aes(cty)) +
+  geom_boxplot()
+```
+
+
+
+
+
+
+
+
+
 
