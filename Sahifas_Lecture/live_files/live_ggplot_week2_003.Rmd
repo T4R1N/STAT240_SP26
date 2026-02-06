@@ -110,6 +110,92 @@ ggplot(mpg, aes(cty, hwy)) +
 ggplot(count(mpg, class), aes(class, n)) + 
   geom_col(color = "purple", fill = "yellow") # the argument fill is used for shaped plots, where the shapes have an area that can be colored 
 ```
+# Friday
+
+```{r}
+summary_cyl = read_csv("../data/summary_cyl.csv")
+view(summary_cyl)
+```
+
+```{r}
+ggplot(summary_cyl, aes(as.factor(cyl), avg_mpg, fill = avg_displ)) +
+  geom_col()
+```
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) +
+geom_smooth(method="lm", se = F)
+```
+
+
+# One- variable plot
+
+- bar graph (this is only to make bar graph with count as the y axis)
+
+```{r}
+ggplot(mpg, aes(manufacturer)) +
+  geom_bar()
+
+ggplot(mpg, aes(drv)) +
+  geom_bar()
+
+ggplot(mpg, aes(y = fl)) +
+  geom_bar()
+
+ggplot(mpg, aes(displ)) +
+  geom_bar()
+```
+
+
+- histogram (this is a graph that displays frequency of a variable (continuous) instead of count)
+
+
+```{r}
+ggplot(mpg, aes(displ)) +
+  geom_histogram(bin)
+
+ggplot(mpg, aes(cty)) +
+  geom_histogram(bins = 10, fill = "skyblue")
+
+ggplot(mpg, aes(cty)) +
+  geom_histogram(binwidth = 5, fill = "skyblue")
+
+ggplot(mpg, aes(cty)) +
+  geom_histogram(binwidth = 5, fill = "skyblue", boundary = 0)
+
+ggplot(mpg, aes(cty)) +
+  geom_histogram(binwidth = 5, fill = "skyblue", center = 2.5)
+```
+
+- geom_density(): density plot: this is for making density plots for continuous variables 
+
+```{r}
+ggplot(mpg, aes(cty)) +
+  geom_density()
+```
+
+```{r}
+ggplot(mpg, aes(cty)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 5) +
+  geom_density(col = "red") 
+```
+
+- alpha: controls the opacity of plots. The value of alpha ranges between 0 and 1.
+
+```{r}
+ggplot(mpg, aes(cty)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 5, fill = "yellow", col = "orange") +
+  geom_density(col = "red", fill = "pink", alpha = 0.7) 
+```
+
+- geom_boxplot(): 
+
+```{r}
+ggplot(mpg, aes(cty)) +
+  geom_boxplot()
+```
+
+
 
 
 
