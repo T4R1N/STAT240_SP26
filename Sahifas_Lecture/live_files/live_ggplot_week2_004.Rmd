@@ -1,0 +1,246 @@
+---
+title: "live_week3"
+author: "Sahifa"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = TRUE)
+# this is a must have
+library(tidyverse)
+```
+# Monday
+
+# Dataset
+
+- in-built dataset called `mpg` in `ggplot2`
+
+```{r}
+# dataset
+
+?mpg # more information about the dataset
+
+view(mpg) # is to open the dataset in a different tab in the source
+
+mendota = read_csv("../data/lake-mendota-winters-2025.csv")
+```
+
+# ggplot
+
+# Step 1: building the base layer or empty canvas
+
+```{r}
+ggplot()
+```
+
+# Step 2: specifying the dataset (mpg)
+
+```{r}
+ggplot(data = mpg)
+
+ggplot(mpg)
+```
+
+# Step 3: specifying the axes (cty , hwy mileages)
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy))
+
+ggplot(mpg, aes(cty, hwy))
+```
+
+# Step 4: specifying the layers (point plot, line plot, or etc)
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point() +
+  geom_line()
+```
+
+
+- customization
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point(color = "red") +
+  geom_line()
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point(col = "red") +
+  geom_line()
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_line() +
+  geom_point(col = "red") 
+```
+# Wednesday
+
+```{r}
+cty = mpg$cty
+hwy = mpg$hwy
+
+ggplot(mapping = aes(x = cty, y = hwy, col = cyl)) +
+  geom_point()
+```
+```{r}
+ggplot(mpg, aes(cty, hwy, col = as.factor(cyl))) +
+  geom_point() +
+  geom_line()
+```
+# variable vs constant aesthetic
+
+```{r}
+ggplot(mpg, aes(cty, hwy, col = as.factor(cyl))) +
+  geom_point() +
+  geom_line()
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_line() +
+  geom_point(col = "red")
+```
+
+# global vs local aesthetic
+
+```{r}
+ggplot(mpg, aes(cty, hwy, col = as.factor(cyl))) + # global aesthetic
+  geom_point() +
+  geom_line()
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_line() +
+  geom_point(col = "red") # local aesthetic
+```
+```{r}
+ggplot(mpg, aes(cty, hwy, col = as.factor(cyl))) + # global aesthetic
+  geom_point() +
+  geom_line()
+
+ggplot() + 
+  geom_point(data = mpg, mapping = aes(cty, hwy, col = as.factor(cyl))) + # local aesthetic
+  geom_line()
+```
+
+# Two Variable plots:
+
+- geom_point():
+- geom_line():
+- geom_smooth(): this makes a trendline or best fit line
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point() +
+  geom_smooth()
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = F, col = "red") # lm = linear model, se = standard error
+```
+- geom_col(): this is for creating bar graphs, x axis has to have categorical variables
+
+```{r}
+summary_mpg = count(mpg, class) # we will learn function in dplyr
+
+ggplot(summary_mpg, aes(x = class, y = n)) + 
+  geom_col(color = "purple", fill = "yellow")
+```
+
+# Friday
+
+```{r}
+ggplot(mpg, aes(cty, hwy)) +
+geom_smooth(method = "lm", se = F)
+```
+
+- geom_col():
+
+```{r}
+summary_cyl = read_csv("../data/summary_cyl.csv")
+
+ggplot(summary_cyl, aes(as.factor(cyl), avg_mpg)) +
+  geom_col(aes(fill = =avg_displ))
+
+ggplot(summary_cyl, aes(as.factor(cyl), avg_mpg)) +
+  geom_col(aes(fill = as.factor(avg_displ)))
+```
+
+
+
+# One variable
+
+Frequency table
+
+Categorical variable
+
+Continuous variable
+
+- geom_bar(): bar graph for displaying counts of each category
+
+```{r}
+ggplot(mpg, aes(y = manufacturer)) +
+  geom_bar(col = "orange", fill = "yellow")
+
+ggplot(mpg, aes(drv)) +
+  geom_bar()
+```
+
+```{r}
+ggplot(mpg, aes(displ)) +
+  geom_bar()
+```
+
+- geom_histogram(): histogram for a continuous random variables
+
+
+```{r}
+ggplot(mpg, aes(displ)) +
+  geom_histogram(bins = 10, fill = "skyblue", col = "dodgerblue")
+
+ggplot(mpg, aes(displ)) +
+  geom_histogram(binwidth = 0.5, fill = "skyblue", col = "dodgerblue", boundary = 0)
+```
+
+
+- geom_density(): makes density plots (distribution plots) for a continuous variable
+
+
+```{r}
+ggplot(mpg, aes(displ)) +
+  geom_density()
+```
+
+
+- Overlapping density and histogram
+
+```{r}
+ggplot(mpg, aes(displ)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 0.5, fill = "skyblue", col = "dodgerblue", boundary = 0) +
+  geom_density(col = "red", fill = "pink")
+```
+
+alpha: controls the opacity or transparency of the graph. The values of alpha lie between 0 and 1. The closer alpha is to 1 the more opaque your graph
+
+```{r}
+ggplot(mpg, aes(displ)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 0.5, fill = "skyblue", col = "dodgerblue", boundary = 0) +
+  geom_density(col = "red", fill = "pink", alpha = 0.5)
+```
+
+- geom_boxplot: demonstrates teh iqr and min, max, outliers
+
+```{r}
+ggplot(mpg, aes(cty)) +
+  geom_boxplot()
+```
+
+
+
+
+
+
+
+
+
+
