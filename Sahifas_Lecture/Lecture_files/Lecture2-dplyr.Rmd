@@ -103,8 +103,8 @@ In this lecture note, we will demonstrate all the `dplyr` functions using the da
 2. Download the files `grocery-list.csv` and `grocery-prices.csv` into the `STAT240/data` folder.
 
 ```{r}
-grocery_list = read_csv("../data/grocery-list.csv")
-grocery_prices = read_csv("../data/grocery-prices.csv")
+grocery_list = read_csv("../../data/grocery-list.csv")
+grocery_prices = read_csv("../../data/grocery-prices.csv")
 ```
 
 ```{r}

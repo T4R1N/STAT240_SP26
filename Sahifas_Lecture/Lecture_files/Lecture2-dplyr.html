@@ -7,7 +7,7 @@
 
         <meta name="author" content="Sahifa Siddiqua" />
     
-        <meta name="date" content="2026-01-14" />
+        <meta name="date" content="2026-02-09" />
     
     <title>STAT 240: Chapter 2 dplyr</title>
 
@@ -1113,6 +1113,7 @@ src: url(data:font/ttf;base64,AAEAAAARAQAABAAQR0RFRgs+Cz8AAjwQAAAAQEdQT1MXWeoAAA
     
         <style type="text/css">code{white-space: pre;}</style>
     <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -1294,7 +1295,7 @@ margin-left: 0 !important;
     <div id="postamble" data-toggle="wy-nav-shift" class="status">
                   <p class="author"><span class="glyphicon glyphicon-user"></span> Sahifa
 Siddiqua</p>
-                        <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2026-01-14</p>
+                        <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2026-02-09</p>
           </div>
    </div>
      
@@ -1409,7 +1410,7 @@ steps:</p>
 <code>grocery-prices.csv</code> into the <code>STAT240/data</code>
 folder.</li>
 </ol>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>grocery_list <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;../data/grocery-list.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>grocery_list <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;../../data/grocery-list.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 10 Columns: 2
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -1418,7 +1419,7 @@ folder.</li>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>grocery_prices <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;../data/grocery-prices.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>grocery_prices <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;../../data/grocery-prices.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 20 Columns: 3
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -2093,12 +2094,12 @@ students.</p>
 <pre><code>## # A tibble: 6 × 2
 ##   name    age
 ##   &lt;chr&gt; &lt;int&gt;
-## 1 C        19
-## 2 B        18
-## 3 D        20
-## 4 E        21
-## 5 F        22
-## 6 A        17</code></pre>
+## 1 A        17
+## 2 F        22
+## 3 C        19
+## 4 D        20
+## 5 B        18
+## 6 E        21</code></pre>
 <p>Let’s say you want to add a column to distinguish which student can
 vote or drink depending on their age. We will be using 18 as the age for
 voting and 21 as the age for drinking.</p>
@@ -2111,12 +2112,12 @@ voting and 21 as the age for drinking.</p>
 <pre><code>## # A tibble: 6 × 3
 ##   name    age legalStatus          
 ##   &lt;chr&gt; &lt;int&gt; &lt;chr&gt;                
-## 1 C        19 Can vote, can&#39;t drink
-## 2 B        18 Can vote, can&#39;t drink
-## 3 D        20 Can vote, can&#39;t drink
-## 4 E        21 Can vote and drink   
-## 5 F        22 Can vote and drink   
-## 6 A        17 Cannot vote nor drink</code></pre>
+## 1 A        17 Cannot vote nor drink
+## 2 F        22 Can vote and drink   
+## 3 C        19 Can vote, can&#39;t drink
+## 4 D        20 Can vote, can&#39;t drink
+## 5 B        18 Can vote, can&#39;t drink
+## 6 E        21 Can vote and drink</code></pre>
 <p>Next we will look at the dplyr functions that are used for operations
 on two datasets, specifically for joining two sets.</p>
 </div>
