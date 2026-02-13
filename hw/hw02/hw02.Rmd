@@ -1,6 +1,6 @@
 ---
 title: "Homework 2"
-author: "Student's Name Here"
+author: "Tarin Phippen"
 output: html_document
 ---
 
@@ -36,6 +36,12 @@ Create a histogram of the `duration` of Lake Monona's closures due to ice using 
 
 - Change the outline and inside color of the bars to some custom combination that you think looks good together.
 
+```{r}
+monona %>% ggplot(aes(x = duration)) +
+  geom_histogram(aes(x=duration), binwidth=10, position=position_nudge(5), color = '#000044', fill = '#443399')
+```
+
+
 
 # Problem 2
 
@@ -51,7 +57,15 @@ ggplot(monona, aes(x = ff_cat)) +
   geom_col()
 ```
 
+```{r}
+ggplot(monona, aes(x = ff_cat)) +
+  geom_bar()
+```
+
+
 Fix your friend's error by editing the above chunk (or create another one). Then, explain why the original code was wrong and why the fixed code works.
+
+Column takes two variables, but we only want to view one. The bar function is more appropriate in this scenario.
 
 For this problem, you just need to create a working bar plot.  For an extra challenge, try to figure out how to change the order of the bars.
 
@@ -72,8 +86,11 @@ ggplot(monona, aes(x = year1, y = duration)) +
 
 (a) What does the argument `method = "lm"` change on the plot?
 
+It will make a smooth line according to a linear model.
+
 (b) What does the argument `se = FALSE` change on the plot?
 
+It disables the otherwise transparent confidence range.
 
 # Problem 4
 
@@ -81,11 +98,19 @@ This problem refers to the graph created in problem 3 above. Its goal is to disp
 
 (a) In a typical year around 1875, how long would Lake Monona close due to ice? (No code needed - your best guess based on the plot will suffice.) 
 
+According to the smooth line, it looks like it could be around 115 days.
+
 (b) In a typical year around 2000, how long would Lake Monona close due to ice?
+
+According to the smooth line, it looks like it could be around 90 days.
 
 (c) Consider encountering this graph in a published news paper. Name one specific thing this graph does well to accomplish its goal, and what specific part of the code is responsible for it.
 
+It would be tricky to see the decreasing trend of days closed over time without the geom_smooth() function.
+
 (d) In the same context as c), name one specific thing that could be improved about this graph, and describe what code you would add/edit to make it happen. (No need to formally write and run the code, just a description.)
+
+To polish it, simply truncate the '1' from 'year' on the x axis label. Add a labs() function to do this.
 
 
 # Problem 5

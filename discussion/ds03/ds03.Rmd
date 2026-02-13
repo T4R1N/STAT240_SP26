@@ -44,6 +44,7 @@ head(ships)
 
 After exploring the data, think about a potential research question you could help answer visually.  For example, "What type of ship is most prone to damage incidents?" or "How does months of service impact the number of incidents?"  If you like, you can tidy or wrangle the data to help answer your question.
 
+What type of ship is most prone to damage incidents?
 
 # Problem 2 
 #### (approx. 25 minutes)
@@ -59,7 +60,9 @@ Your plot should have the following:
 
 ```{r}
 ships %>%
-  ggplot()
+  ggplot(aes(x = type, y = incidents)) +
+  geom_col(aes(fill = type)) +
+  labs(title = "Damage incidents by ship type", subtitle = "What type of ship is most prone to damage incidents?", x = "Ship Type", y = "Damage Incidents", caption = "data from 1960-1979")
 ```
 
 
@@ -67,6 +70,9 @@ ships %>%
 #### (approx. 10 minutes)
 
 Share your research question and visual with another group, and have them do the same.  Give some constructive feedback to the other group.  What does their plot do well, and what improvements could be made?  Does their graph effectively communicate the answer to their research question?
+
+Our other group had a very similar research question, and drew the same conclusions we did.
+I liked how they included the years range of data. They can
 
 
 
