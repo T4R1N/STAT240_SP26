@@ -86,7 +86,7 @@ ggplot(monona, aes(x = year1, y = duration)) +
 
 (a) What does the argument `method = "lm"` change on the plot?
 
-It will make a smooth line according to a linear model.
+It will make a straight line from a linear model instead of a curved one.
 
 (b) What does the argument `se = FALSE` change on the plot?
 
@@ -131,6 +131,15 @@ ggplot(mapping = aes(x = year1, y = duration)) +
 
 Identify all of the aesthetics used in this plot, and explain whether each one is constant or variable.  Are the variable aesthetic(s) global or local?
 
+x = year 1,
+y = duration;
+These are global since they're put as parameters of the ggplot function call.
+
+color = red,
+color = blue;
+These are local since they're put as parameters of individual geom functions
+
+They are all constants, and attempting to change them would cause an error.
 
 # Problem 6
 
@@ -147,11 +156,21 @@ head(combined)
 ```
 
 Create a similar plot to problem 5, with `duration` on the y axis, `year1` on the x axis, and two smooth lines, one for each lake. This time, use the `combined` dataset and a single call to `geom_smooth()`.
-
+```{r}
+ggplot(mapping = aes(x = year1, y = duration, color = lake)) +
+  geom_smooth(data = combined)
+```
 
 # Problem 7
 
 Using the `combined` data, create a plot similar to problems 5 and 6, but with a line showing each year's specific data point, rather than a smooth line.  There should be two separate lines for each lake.
+
+```{r}
+ggplot(mapping = aes(x = year1, y = duration, alpha = 0.7, color = lake)) +
+  geom_line(data = combined) 
+  # geom_smooth(method = 'lm', data = combined)
+  # geom_point(data = combined)
+```
 
 
 # Problem 8
@@ -159,4 +178,6 @@ Using the `combined` data, create a plot similar to problems 5 and 6, but with a
 Compare the graphs from problems 6 and 7.
 
 Consider trying to determine in what time period Lake Mendota was freezing, on average, longer than Lake Monona. Which of graph do you prefer for this determination and why?
+
+There is a clear area where lake Mendota's average is above Monona's in problem 6, whereas it's possible but far more difficult to do so in problem 7.
 
