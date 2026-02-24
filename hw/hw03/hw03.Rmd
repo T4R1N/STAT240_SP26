@@ -1,6 +1,6 @@
 ---
 title: "Homework 3"
-author: "Student's Name Here"
+author: "Tarin Phippen"
 output: html_document
 ---
 
@@ -34,6 +34,16 @@ Starting from `planets`,
 
 - Save this dataframe as some name other than `planets`, and then in a separate line print the entire resulting table, using `print()` with the `n = Inf` argument.
 
+```{r}
+filtered_planets <- planets %>%
+  filter(mass < 1.0 & radius < 1.0) %>%
+  select(-c(id, star)) %>%
+  arrange(mass)
+
+print(filtered_planets, n = Inf)
+```
+
+
 
 # Problem 2
 
@@ -58,6 +68,16 @@ Your first two rows should look like this if you did it correctly:
  2  2001            1      1392.  
 ```
 
+```{r}
+mass_by_year <- planets %>%
+  filter(!is.na(mass) & !is.na(radius)) %>%
+  group_by(year) %>%
+  summarize(n_discovered = n(), minimum_mass = min(mass))
+
+mass_by_year
+```
+
+
 
 # Problem 3
 
@@ -72,6 +92,15 @@ Incorporate the following customizations:
 
 - Add an informative legend title and y axis label.
 
+```{r}
+mass_by_year %>%
+  ggplot(aes(year, minimum_mass)) +
+  scale_y_log10() +
+  geom_point() +
+  labs(title = "Exoplanet Minimum Mass by Year", x = "Year", y = "Minimum Mass")
+```
+
+
 
 # Problem 4
 
@@ -79,7 +108,16 @@ Starting from `planets`, the original dataframe from the top of the file, print 
 
 The density of a planet is its mass divided by its volume.
 
-The volume of a planet is $\frac{4}{3} \times \pi \times \text{radius}^3$. Note that `pi` is a constant bult into R that you may use.
+The volume of a planet is $\frac{4}{3} \times \pi \times \text{radius}^3$. Note that `pi` is a constant built into R that you may use.
+
+```{r}
+planet_densities <- planets %>%
+  mutate(volume = (4/3) * pi * radius ^ 3, density = mass / volume) %>%
+  arrange(-density)
+
+print(planet_densities, n = 5)
+```
+
 
 
 # Problem 5
@@ -93,6 +131,15 @@ Starting from `planets`,
 - Create side-by-side boxplots of the different `methods` with `radius` on the y axis.  You should have five boxplots, each colored differently based on method.
 
 Briefly interpret the plot, keeping in mind the number of data points in each box plot is different. Which method detected the planet with the smallest radius in the dataset? 
+
+```{r}
+planets %>%
+  filter(!is.na(radius) & radius < 40) %>%
+  ggplot(aes(method, radius, color = method)) +
+  geom_boxplot()
+```
+
+According to the box plots, Transit captured the smallest radius planet within its first quartile.
 
 
 # Problem 6
@@ -128,6 +175,17 @@ The top of `methods_within_year` should look similar to this (column order does 
  4  2002 Transit             1
 ```
 
+```{r}
+methods_within_year <- planets %>%
+  filter(year >= 2000) %>%
+  group_by(year, method) %>%
+  summarize(n = n()) %>%
+  arrange(year)
+
+print(methods_within_year, n = 20)
+```
+
+
 
 # Problem 7
 
@@ -144,6 +202,18 @@ Starting from `methods_within_year` from problem 6 above,
  3  2002 Radial Velocity    28        29
  4  2002 Transit             1        29
 ```
+```{r}
+# methods_within_year <- methods_within_year %>%
+year_total <- methods_within_year %>%
+  group_by(year) %>%
+  summarize(yearTotal = sum(n))
+
+methods_within_year <- methods_within_year %>%
+  left_join(year_total, by = "year")
+
+print(methods_within_year)
+```
+
 
 - Now, add another column called `methodProportion`, which determines what percentage of the discoveries within that year were by that method.
     - Here's what `methodProportion` should look like:
@@ -159,6 +229,15 @@ Starting from `methods_within_year` from problem 6 above,
 
 - Save this dataframe with the name `methods_within_year_proportions`, and then let `methods_within_year_proportions` be shown as output so the first ten rows are visible in the knitted file.
 
+```{r}
+
+methods_within_year_proportions <- methods_within_year %>%
+  mutate(methodProportion = n / yearTotal)
+
+print(methods_within_year_proportions, n = 10)
+```
+
+
 
 ## Problem 8
 
@@ -167,4 +246,12 @@ Using `methods_within_year_proportions` from the previous question, create a col
 The height of each bar should be exactly 1. Then, use the `fill` aesthetic to color each column by its different `method`s.
 
 Finally, let's answer the client's question. How has the most popular method of planet discovery changed over time?
+
+```{r}
+methods_within_year_proportions %>%
+  ggplot(aes(year, methodProportion)) +
+  geom_col(aes(fill = method))
+```
+
+In the early 2000's, Radial Velocity was the dominant method of planet discovery. However, by the 2010's, a variety of new methods were being used, and Transit took the lead as the new dominant method.
 

@@ -1,6 +1,6 @@
 ---
 title: "Discussion 4"
-author: "Group Member Names Here"
+author: "Tarin Phippen"
 output: html_document
 ---
 
@@ -46,6 +46,8 @@ Now, it's time for the food to be distributed according to who made the best con
 
 Your group can either vouch for the **herbivores** or the **omnivores**.  For each of the following problems, complete the first step, then complete the sub-problem that corresponds to your chosen animal group.  The sub-problems will have less explicit guidance.
 
+herbivores
+
 
 # Problem 1
 #### (approx. 5 minutes)
@@ -53,6 +55,14 @@ Your group can either vouch for the **herbivores** or the **omnivores**.  For ea
 How filling is the food that was donated?
 
 Use `mutate` to add a new column to the data for the calorie density of each donation, measured as calories per 100 grams.  Use the conversion 1 pound = 454 grams.
+
+```{r}
+donations <- donations %>% 
+  mutate(caloric_density = weight*4.54)
+
+head(donations)
+```
+
 
 
 # Problem 2
@@ -65,6 +75,16 @@ Start by making a dataset that records the total number of donations per individ
 - First, use `group_by()` to perform calculations for each individual.  To ensure that `species_diet` and `species` are present in the final dataset, you'll need to group by multiple columns.
 - Next, use `summarize()` to count the total number of donations per individual.
 - Save this dataframe as `donations_summary`.
+
+```{r}
+donations_summary <-
+  donations %>%
+  group_by(species_diet, species, name) %>%
+  summarize(total_donations = n())
+
+head(donations_summary)
+```
+
 
 
 The first few rows of the dataframe should look like this:
@@ -83,6 +103,14 @@ The first few rows of the dataframe should look like this:
 
 Use `donations_summary` to show that the herbivores made a greater number of donations on average *per species*.  This one is tricky - you'll need to use multiple calls to `group_by()` and `summarize()` to first perform calculations at the species level, then at the herbivore/omnivore level.
 
+```{r}
+donations_summary %>%
+  group_by(species, species_diet) %>%
+  summarize(species_donations = mean(total_donations)) %>%
+  group_by(species_diet) %>%
+  summarize(diet_donations = mean(species_donations))
+```
+
 
 ## Omnivores
 
@@ -100,10 +128,26 @@ Let's make a smaller dataset that only contains donations that will last at leas
 
 The dataframe `long_term_donations` should have 126 rows. 
 
+```{r}
+long_term_donations <- 
+  donations %>%
+  filter(spoilage_time >= 30)
+
+head(long_term_donations)
+```
+
+
 
 ## Herbivores
 
 Use `long_term_donations` to show that the herbivores' long-term donations are, on average, more calorie dense than the omnivores' long-term donations.
+
+```{r}
+long_term_donations %>%
+  group_by(species_diet) %>%
+  summarize(average_density = mean(caloric_density))
+```
+
 
 
 ## Omnivores
@@ -133,6 +177,15 @@ donations_by_type
 ## Herbivores
 
 Use `donations_by_type` to show that the herbivores made most of the donations for the majority of the different food types.  There are a number of ways to do this, but you can consider making a new column indicating whether the herbivores or omnivores made the majority of donations.
+
+```{r}
+donations_by_type %>%
+  group_by(food_type) %>%
+  summarize(herbi_omni_ratio = herbivore / omnivore) %>%
+  group_by(food_type, herbi_omni_ratio) %>%
+  summarize(herbivores_more = herbi_omni_ratio > 1)
+```
+
 
 
 ## Omnivores
