@@ -190,7 +190,7 @@ dbinom(0, 50, 0.02)
 ```
 
 
-- Probability of getting atleast 2 junk email in a day. That is we want to find $P(X\leq 2)$, which can be found by adding the height of the bars of 0, 1 and 2 or using the pmf. But we can also do it easily using the `pbinom()` or `dbinom()` questions.
+- Probability of getting atmost 2 junk email in a day. That is we want to find $P(X\leq 2)$, which can be found by adding the height of the bars of 0, 1 and 2 or using the pmf. But we can also do it easily using the `pbinom()` or `dbinom()` questions.
 
 ```{r}
 # visual representation
@@ -427,7 +427,6 @@ This process of converting any normal distribution into a standard normal distri
 
 The standard normal distribution also makes it easier to visualize points as to how many deviations away they are from the mean. The `number of deviations of away from the mean` is a very intuitive and descriptive way of comparison since it not only gives you the comparison with other points but also the rarity of the point itself. 
 
-```
 For example:
 
 Consider a random variable $X \sim N(100, 25)$ that takes on the value 75. And another random variable $Y \sim N(10, 7)$, that takes on the value 24. Which value is more extreme, or less likely?
@@ -448,7 +447,7 @@ $Y = 18$ was $\frac{24-10}{7} = 2$ standard deviations away from its mean.
 
 
 If instead, we had reported that $X$ was 1 standard deviation away from its mean and $Y$ was 2 standard deviations away from its mean, we would already know which is more extreme - *regardless of the context* of $X$ and $Y$.
-```
+
 
 The standardization process can also be used in calculating probabilities.
 
