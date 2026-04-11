@@ -1,6 +1,6 @@
 ---
 title: "Homework 7"
-author: "Student's Name Here"
+author: "Tarin Phippen"
 output: html_document
 ---
 
@@ -28,11 +28,25 @@ Let $X_1$ and $X_2$ be two draws from $X \sim N(10, 4)$. Order the five events b
 - Event E: $X_1 > X_2$
 
 
+Most likely ->
+- C
+- E
+- B
+- A
+- D
+-> Least likely
+
 # Problem 2
 
 The weight of adult male grizzly bears in the continental United States is well approximated by a normal distribution with mean 510 pounds and standard deviation 45 pounds. The weight of adult female grizzly bears in the continental United States is well approximated by a normal distribution with mean 315 pounds and standard deviation 37 pounds.
 
 Suppose a male grizzly bear that is 441 pounds is observed. What would be the approximate weight of a female grizzly bear with the same weight percentile as this male grizzly bear?
+
+```{r}
+qnorm(pnorm(441, 510, 45), 315, 37)
+```
+
+Approximately 258 pounds
 
 
 # Problem 3
@@ -41,24 +55,80 @@ The lifespan of a certain type of tire is approximately normal, with mean 39 and
   
 (a) What is the probability that a random tire will last longer than 40,000 miles?
 
+```{r}
+pnorm(40000, 39000, 2500, lower.tail=FALSE)
+```
+
+
 (b) What is the 95th percentile of tire lifespan?
+
+```{r}
+qnorm(.95, 39000, 2500)
+```
+
 
 (c) Take a random sample of 4 tires.  What is the probability that the average lifespan of the four tires will be greater than 40,000 miles?
 
+```{r}
+tire_se <- 2500 / sqrt(4)
+
+tire_se
+
+pnorm(40000, 39000, tire_se, lower.tail = FALSE)
+```
+
+
 (d) What is the 95th percentile for the average lifespan of four tires?  
+
+```{r}
+qnorm(.95, 39000, tire_se)
+```
+
 
 (e) Explain why the answers to (a) and (b) are so different from the ansewrs to (c) and (d).
 
+The law of large numbers states that the more trials we run, the closer we get to the true parameters. That's why having more trials means that we will have a narrower bell curve.
 
 # Problem 4
 
 Suppose you are playing a coin flipping game with a friend, where you suspect the coin your friend provided is not a fair coin.  In fact, you think the probability the coin lands heads is less than 0.5.  To test this, you flip the coin 100 times and observe the coin lands heads 30 times.
-  
+
 (a) If you assume the coin is fair (i.e., the probability of the coin landing heads is 0.5), what is the probability of observing 30 heads or fewer, calculated using an exact model?
+
+```{r}
+p4prob <- pbinom(30, 100, 0.5)
+p4prob
+```
+
 
 (b) Calculate the previous probability, but use a normal approximation to achieve a numerical value. What is the error in this approximation?
 
+```{r}
+n = 100
+p = 0.5
+mu = n*p
+sigma = sqrt(n*p*(1-p))
+
+p4approx <- dnorm((30-mu) / sigma)
+p4approx
+```
+
+
+```{r}
+p4prob - p4approx
+```
+
+
 (c) How small would $p$ need to be (rounded to the nearest 0.01) for the probability of observing 30 or fewer heads to be greater than 0.05? *You could determine $p$ by trial and error, but there is also a quicker solution using `tibble()`.*
+
+```{r}
+library(tibble)
+results <- tibble(p = seq(0.01, 0.49, by = 0.01)) %>%  
+  mutate(prob = map_dbl(p, ~ pbinom(30, 100, .x))) %>%  
+  filter(prob > 0.05)
+
+results
+```
 
 
 # Problem 5
@@ -79,7 +149,20 @@ Then, make four histograms to compare the original population and the three samp
 
 ```{r}
 right_skewed <- c(rep(0, 60), rep(1, 25), rep(2, 10), rep(3, 5))
+rs5 <- replicate(10000, mean(sample(right_skewed, 5, replace = T)))
+rs10 <- replicate(10000, mean(sample(right_skewed, 10, replace = T)))
+rs50 <- replicate(10000, mean(sample(right_skewed, 50, replace = T)))
 ```
+
+
+```{r}
+hist(right_skewed)
+hist(rs5)
+hist(rs10)
+hist(rs50)
+```
+
+As $n$ increases, we see a bell curve that seems to be less and less skewed.
 
 
 # Problem 6
@@ -88,13 +171,23 @@ A 95% confidence interval for the true mean monthly rent in USD in Madison based
 
 (a) About 95 percent of all rental prices in Madison are between 943 and 1024.
 
+False: this metric refers to the mean of the population, not individual entries. There could be zero entries within that range.
+
 (b) About 95 percent of the 100 rental prices in this sample are between 943 and 1024.
+
+False: for the same reason as (a)
 
 (c) In repeated sampling, the method produces intervals that include the population mean in approximately 95% of samples. 
 
+True: When we say we are 95% confident that a mean will be within that range, we can expect that the mean would be within that range 95% of the time.
+
 (d) There is a 95% chance that the true mean monthly rent is between 943 and 1024.
 
+False: the parameter mean is what it is, regardless of the interval we calculate. It's not a matter of probability.
+
 (e) Working with this same sample, we would expect a hypothesis test with significance level 0.05 to fail to reject a null hypothesis that the true mean monthly rent is 1000.
+
+True: the null hypothesis is within our interval, meaning it's a plausible value for the population mean.
 
 
 # Problem 7
@@ -103,9 +196,15 @@ For each of the three prompts, explain which condition will result in a *narrowe
 
 - Having a larger confidence level (smaller alpha) versus having a smaller confidence level (larger alpha)
 
+Having a smaller alpha means we have a larger range of values, because more values are probable based on statistical significance. This increases our chance of having a type 1 error. A larger alpha means we have a higher threshold, narrowing the interval.
+
 - Having larger estimation error (a.k.a "sampling error") versus having smaller estimation error
 
+When the estimation error is smaller, it indicates the sample means are closer to the true population mean, leading to a narrower confidence interval.
+
 - Having a larger point estimate versus having a smaller point estimate
+
+Point estimate is what the interval is constructed around; they are separate though they build upon each other.
 
 
 # Problem 8
@@ -113,10 +212,15 @@ For each of the three prompts, explain which condition will result in a *narrowe
 The code below calculates the Z critical value to build a 95% confidence interval.
 
 ```{r}
-qnorm(0.975)
+qnorm(0.95)
 ```
 
 (a) Edit the code to instead calculate the critical value for 98% confidence.
+
+```{r}
+qnorm(0.98)
+```
+
 
 (b) Next, generalize this operation to any confidence level.  Uncomment and edit the code below to return the critical value for a (1-alpha) confidence interval for any choice of alpha.
 
@@ -124,8 +228,10 @@ qnorm(0.975)
 # For example, a 90% CI
 alpha <- 0.1
 
-# qnorm(???)
+qnorm(1 - alpha)
 ```
 
 (c) What would be the critical value for a 100% confidence interval?
+
+It would approach infinity, since it would have to include all values.
 

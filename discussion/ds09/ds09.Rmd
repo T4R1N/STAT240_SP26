@@ -1,6 +1,6 @@
 ---
 title: "Discussion 9"
-author: "Group Member Names Here"
+author: "Tarin, Riley, Tiffany, Brenda"
 output: html_document
 ---
 
@@ -58,11 +58,22 @@ Suppose you have completed a hypothesis test and found a final p-value of 0.03. 
 
 - Since we have a small p-value, we have failed to disprove the alternative hypothesis.
 
+False: if alpa is 0.01, we fail to disprove it. if alpa is 0.05, we disprove null ypotesis.
+
+
 - If the null hypothesis were true, the p-value would be larger than 0.05.  So, the null hypothesis is false.
+
+False: same reason
+
 
 - If the null hypothesis were true, the p-value would be smaller in only 3% of cases.  So, the null hypothesis is probably false.
 
+True
+
+
 - There is only a 3% chance that the null hypothesis is true, so the null hypothesis is probably false.
+
+False
 
 
 # Problem 3
