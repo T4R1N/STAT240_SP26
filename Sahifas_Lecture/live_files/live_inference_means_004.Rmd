@@ -1,0 +1,164 @@
+---
+title: "live: Inference on means"
+author: "Sahifa"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# 004
+
+# Infernce on single mean
+
+What is the true average time that it takes a participants of the Boston Marathon in the age range of "18-34" to finish the marathon? 
+
+```{r}
+bm
+
+bm_summary = bm %>% filter(age_range == "18-34", Year == 2010) %>% summarise(sample_mean = mean(total_time), sample_sd = sd(total_time), n = n())
+
+xbar = 223.8312
+s = 40.90398
+n = 6448
+
+# 95% CI fo rthe true avg time for the BM
+
+c = 0.95
+cv = qt(c+(1-c)/2, n-1) # since our sample size is big, the quantile of t distributioj is going to be same as the normal distribution
+
+cv
+
+se = s/sqrt(n)
+
+xbar + c(-1, 1)*cv*se
+```
+
+
+Hypothesis test: Is the true average time it takes a participants of the Boston Marathon in the age range of "18-34" to finish the marathon 4 hrs?
+
+
+$$H_0: \mu = 240 \\
+H_{alpha}: \mu \neq 240$$
+
+
+```{r}
+t = (xbar - 240)/se
+t
+
+2*pt(abs(t), n-1, lower.tail = F)
+```
+
+
+```{r}
+times = bm %>% filter(age_range == "18-34", Year == 2010) %>% select(total_time)
+
+t.test(times)
+
+t.test(times, mu = 240, alternative = "less", conf.level = 0.9)
+
+t.test(times, mu = 224, alternative = "less")
+```
+# Inference on differnece of means
+
+# unequal variances
+$\sigma_x \neq \sigma_y$
+
+$\mu_x - \mu_y$ mostly be a negative number
+
+```{r}
+times_male = bm %>% filter(age_range == "18-34", sex == "male") %>% select(total_time)
+
+times_female = bm %>% filter(age_range == "18-34", sex == "female") %>% select(total_time)
+
+bm_summary_two_means = bm %>% filter(age_range == "18-34") %>% group_by(sex) %>% summarise(sample_avg = mean(total_time), sample_s = sd(total_time), n = n())
+
+bm_summary_two_means
+```
+
+```{r}
+ybar = bm_summary_two_means$sample_avg[1]
+xbar = bm_summary_two_means$sample_avg[2]
+sy = bm_summary_two_means$sample_s[1]
+sx = bm_summary_two_means$sample_s[2]
+ny = bm_summary_two_means$n[1]
+nx = bm_summary_two_means$n[2]
+```
+
+```{r}
+# 95% CI 
+
+pe = xbar - ybar
+se = sqrt(sx^2/nx + sy^2/ny)
+c = 0.95
+w = (sx^2/nx + sy^2/ny)^2 / (sx^4/(nx^2*(nx-1)) + sy^4/(ny^2*(ny-1)))
+cv = qt(c+(1-c)/2, w)
+cv
+pe + c(-1, 1)*cv*se
+```
+- Hypothesis testing
+
+$$H_0: \mu_x - \mu_y = 0 \text{ vs } \mu_x=\mu_y \\
+H_{\alpha}: \mu_x - \mu_y < 0 \text{ vs } \mu_x<\mu_y$$
+```{r}
+t = (pe - 0)/se # has a t distribution or that your null dist is t
+t
+
+p_val = pt(t, w)
+p_val # alpha = 0.05, p-val< 0.05, we reject H_0
+```
+
+```{r}
+t.test(times_male, times_female, alternative = "less", conf.level = 0.9)
+```
+
+# equal variance
+
+```{r}
+times_2010 = bm %>% filter(age_range == "18-34", sex == "female", Year == "2010") %>% select(total_time)
+  
+times_2011 = bm %>% filter(age_range == "18-34", sex == "female", Year == "2011") %>% select(total_time)
+
+t.test(times_2010, times_2011)
+
+t.test(times_2010, times_2011, var.equal = T)
+```
+
+# Paired t test
+
+```{r}
+thirteen = c(44.1, 59.0, 65.9, 58.7, 49.3)
+fourteen = c(46.3, 60.5, 68.2, 59.4, 50.6)
+
+diff = thirteen-fourteen
+diff
+
+t.test(diff)
+t.test(thirteen, fourteen, paired = T)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
